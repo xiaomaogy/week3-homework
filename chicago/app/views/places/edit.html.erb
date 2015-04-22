@@ -1,0 +1,11 @@
+<h2> Edit a Place </h2>
+<form action="/places/<%= @place_to_edit.id %>/update"> 
+<h4>Title:<%= text_field_tag 'title', "#{@place_to_edit.title}", size:30%> </h4>
+<h4>Photo URL:<%= text_field_tag 'photo_url', "#{@place_to_edit.photo_url}", size:80%> </h4>
+<h4>Price:<%= text_field_tag 'admission_price', "#{@place_to_edit.admission_price.to_i/1000.0}", size:15%> </h4>
+<h4>Description: </h4>
+<textarea name="description" rows="10" cols="100" > <%="#{@place_to_edit.description}"%> </textarea><br>
+
+<%= submit_tag "Submit" %>
+
+</form>

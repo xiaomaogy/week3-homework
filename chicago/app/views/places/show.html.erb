@@ -1,0 +1,76 @@
+<style>
+  h2 {
+    color: white;
+    background: #555;
+    padding: 6px;
+    text-align: center;
+  }
+  .price {
+    color: gray;
+    border: solid 1px gray;
+    padding: 4px;
+  }
+  img {
+    float: left;
+    margin-right: 40px;
+    box-shadow: 8px 8px 4px gray;
+    width: "400px";
+
+  }
+  p {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+
+  .review{
+    padding-top: 20px;
+    clear:both;
+    
+  }
+
+  ul.review{
+    list-style-type: none;
+  }
+
+  li.review{
+    margin-top:10px;
+  }
+</style>
+
+<h2><%= @place.title %></h2>
+
+<p>
+  <span class="price">Admission Price:<%= number_to_currency(@place.admission_price.to_i/1000.0) %></span>
+  <%= link_to "edit", "/places/#{@place.id}/edit"%>
+</p>
+
+<%= image_tag @place.photo_url %>
+
+<p><%= @place.description %></p>
+
+<div class="review">
+  <h3>Reviews</h3>
+  <p>Write a Review</p>
+  
+  <form action="/places/<%= @place.id %>/addreview">
+    <%= select_tag "rating", "<option value=5>5 star</option><option value=4>4 starts</option><option value=3>3 stars</option><option value=2>2 stars</option><option value=1>1 stars</option><option value=0>0 stars</option>".html_safe%>
+    <%= text_field_tag 'description', nil, size:80%>
+
+    <%= submit_tag "Submit" %>
+
+  </form>
+
+  <ul class="review">
+
+  <% @reviews.reverse.each do |review| %>
+    <li class="review">
+      <% review.rating.times do %>
+        <b>&#9733</b>
+      <% end %>
+      <%= review.description %>
+    </li>
+  <% end %>
+
+  </ul>
+
+</div>
